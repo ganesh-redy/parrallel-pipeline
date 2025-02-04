@@ -1,0 +1,57 @@
+pipeline{
+    agent any
+   stages{
+    stage("one"){
+        steps{
+             sh 'echo stage1'
+        }
+       
+
+    }
+      stage("two"){
+        steps{
+             sh 'echo stage2'
+        }
+       
+
+    }
+      stage("parallel regression test"){
+        steps{
+             parallel(
+                chrome : {
+                    sh 'echo chrome'
+                },
+                app : {
+                    sh 'echo app1'
+                },
+                firefox : {
+                    sh 'echo firefox'
+                }
+
+             )
+        }
+       
+
+    }
+     post {
+    always{
+        echo "okay"
+    }
+    success{
+        echo "success pipe"
+    }
+    failure {
+        echo "failure pip"
+    }
+    unstable {
+        echo " no stable"
+    }
+    changed{
+        echo "there was change occurs"
+    }
+   }
+
+   }
+   
+
+}

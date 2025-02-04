@@ -1,19 +1,19 @@
-pipeline{
+pipeline {
     agent any
     environment {
-        fname ="ganesh"
-
+        fname = "ganesh"
     }
     stages {
-            stage ("simple"){
-                    step{
-                        sh 'echo ${fname}'
-                    }
+        stage("simple") {
+            steps {
+                sh 'echo ${fname}'
             }
-            stage ("simple2"){
-                    step{
-                        sh 'echo ${fname}'
-                    }
+        }
+        stage("simple2") {
+            steps {
+                sh 'echo ${fname}'
+            }
         }
     }
 }
+

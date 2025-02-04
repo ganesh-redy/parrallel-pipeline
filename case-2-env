@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    environment {
+        fname = "ganesh"
+    }
+    stages {
+        stage("simple") {
+            environment {
+                fname = "ganesh"
+             }
+            steps {
+                sh 'echo ${fname}'
+            }
+        }
+        stage("simple2") {
+            steps {
+                sh 'echo ${fname}'
+            }
+        }
+    }
+}

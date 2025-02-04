@@ -1,60 +1,56 @@
-pipeline{
+pipeline {
     agent any
     environment {
-        s = 10
+        s = "10"    // Environment variables are stored as strings
         p = "hello"
-        s1 ="okay"
-
+        s1 = "okay"
     }
+    
     stages {
-        stage ("only when") {
+        stage("only when") {
             when {
-                environment name : "s", value : 10
+                environment name: "s", value: "10"
             }
             steps {
                 echo "only when"
-
             }
         }
-        stage ( " when allOf") {
-            when{
+        
+        stage("when allOf") {
+            when {
                 allOf {
-                    environment name : "s", value : 10
-                    environment name : "p", value :  "hello"
-
+                    environment name: "s", value: "10"
+                    environment name: "p", value: "hello"
                 }
             }
-            steps{
-                echo "allcorrect"
-            }
-        }
-        stage ("when allOF only one correct"){
-            when{
-                allOf{
-                    environment name : "s", value : 10
-                    environment name : "p", value :  40
-
-
-                }
-                steps{
-                    echo "one correct in allOf"
-
-                }
+            steps {
+                echo "all correct"
             }
         }
-        stage ("when allOF only one correct"){
-            when{
-                anyOf{
-                    environment name : "s", value : 10
-                    environment name : "p", value :  40
-
-
+        
+        stage("when allOF only one correct") {
+            when {
+                allOf {
+                    environment name: "s", value: "10"
+                    environment name: "p", value: "40"  // This will NOT execute because one condition is false
                 }
-                steps{
-                    echo "one correct in anyOf"
-
+            }
+            steps {
+                echo "one correct in allOf"
+            }
+        }
+        
+        stage("when anyOf only one correct") {
+            when {
+                anyOf {
+                    environment name: "s", value: "10"
+                    environment name: "p", value: "40"  // This will execute because one condition is true
                 }
+            }
+            steps {
+                echo "one correct in anyOf"
             }
         }
     }
 }
+

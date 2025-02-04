@@ -1,0 +1,60 @@
+pipeline{
+    agent any
+    environment {
+        s = 10
+        p = "hello"
+        s1 ="okay"
+
+    }
+    stages {
+        stage ("only when") {
+            when {
+                environment name : "s", value : 10
+            }
+            steps {
+                echo "only when"
+
+            }
+        }
+        stage ( " when allOf") {
+            when{
+                allOf {
+                    environment name : "s", value : 10
+                    environment name : "p", value :  "hello"
+
+                }
+            }
+            steps{
+                echo "allcorrect"
+            }
+        }
+        stage ("when allOF only one correct"){
+            when{
+                allOf{
+                    environment name : "s", value : 10
+                    environment name : "p", value :  40
+
+
+                }
+                steps{
+                    echo "one correct in allOf"
+
+                }
+            }
+        }
+        stage ("when allOF only one correct"){
+            when{
+                anyOf{
+                    environment name : "s", value : 10
+                    environment name : "p", value :  40
+
+
+                }
+                steps{
+                    echo "one correct in anyOf"
+
+                }
+            }
+        }
+    }
+}

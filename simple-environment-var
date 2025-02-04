@@ -5,15 +5,15 @@ pipeline{
 
     }
     stages {
-        stage ("simple"){
-            step{
-                sh 'echo ${fname}'
+            stage ("simple"){
+                    step{
+                        sh 'echo ${fname}'
+                    }
             }
-        }
-         stage ("simple2"){
-            step
-                sh 'echo ${fname}'
-            }
+            stage ("simple2"){
+                    step{
+                        sh 'echo ${fname}'
+                    }
         }
     }
 }
